@@ -85,8 +85,9 @@ public class auto_1 extends LinearOpMode {
     static final double     DRIVE_SPEED             = 0.8;     // Nominal speed for better accuracy.
     static final double     TURN_SPEED              = 0.5;     // Nominal half speed for better accuracy.
 
+    static final double     HEADING_THRESHOLD       = 1 ;      // As tight as we can make it with an integer gyro
+    static final double     P_TURN_COEFF            = 0.1;     // Larger is more responsive, but also less stable
     static final double     P_DRIVE_COEFF           = 0.15;     // Larger is more responsive, but also less stable
-
 
 
     @Override
@@ -149,7 +150,7 @@ public class auto_1 extends LinearOpMode {
         robot.servo.setPosition(1.0);
 */
         drive(5,5,.5);
-
+        drive(5,0,.5);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -200,6 +201,38 @@ public class auto_1 extends LinearOpMode {
         int rightSpeed;
 
     }
+    boolean onHeading(double speed, double angle, double PCoeff) {
+        double   error ;
+        double   steer = 1;
+        boolean  onTarget = false ;
+        double leftSpeed;
+        double leftSpeed1;
+        double rightSpeed;
+        double rightSpeed1;
+
+        rightSpeed  = speed * steer;
+        rightSpeed1 = speed * steer;
+        leftSpeed   = -rightSpeed;
+        leftSpeed1 = -rightSpeed1;
+
+
+        // Send desired speeds to motors.
+        robot.lm1.setPower(leftSpeed);
+        robot.lm2.setPower(leftSpeed1);
+        robot.rm1.setPower(rightSpeed);
+        robot.rm2.setPower(rightSpeed1);
+
+        // Display it for the driver.
+        telemetry.addData("Target", "%5.2f", angle);
+        telemetry.addData("Err/St", "%5.2f/%5.2f",steer);
+        telemetry.addData("Speed.", "%5.2f:%5.2f", leftSpeed, rightSpeed);
+
+        return onTarget;
+    }
+    public double getSteer(double error, double PCoeff) {
+        return Range.clip(error * PCoeff, -1, 1);
+    }
+
 /*
     public void Drive ( double speed,
                             double distance) {
