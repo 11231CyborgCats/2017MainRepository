@@ -13,8 +13,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class hardware {
     /* Public OpMode members. */
-    public DcMotor lm1  = null;
-    public DcMotor lm2  = null;
+    public DcMotor lm1 = null;
+    public DcMotor lm2 = null;
     public DcMotor rm1 = null;
     public DcMotor rm2 = null;
     public Servo servo = null;
@@ -40,6 +40,8 @@ public class hardware {
         // Define and Initialize Motors
         lm1  = hwMap.get(DcMotor.class, "lm1");
         lm2 = hwMap.get(DcMotor.class, "lm2");
+        rm1 = hwMap.get(DcMotor.class, "rm1");
+        rm2 = hwMap.get(DcMotor.class, "rm2");
         lm1.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         lm2.setDirection(DcMotor.Direction.FORWARD);
         rm1.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors

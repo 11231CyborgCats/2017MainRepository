@@ -102,6 +102,7 @@ public class auto_1 extends LinearOpMode {
         telemetry.addData("Status", "Ready to run");    //
         telemetry.update();
 
+
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
@@ -146,15 +147,60 @@ public class auto_1 extends LinearOpMode {
         robot.rm1.setPower(0);
         robot.rm2.setPower(0);
         robot.servo.setPosition(1.0);
-        */
+*/
+        drive(5,5,.5);
 
-        
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
         sleep(1000);
     }
+    public void drive (float leftDrive,float rightDrive, double speed){
+        int NewLeftTarget;
+        int NewLeftTarget1;
+        int NewRightTarget1;
+        int NewRightTarget;
+        int moveCounts1;
+        int moveCounts;
+        int leftSpeed;
+        int rightSpeed;
 
+        if (opModeIsActive()) {
+            moveCounts = (int)(leftDrive * COUNTS_PER_INCH);
+            moveCounts1 = (int)(rightDrive * COUNTS_PER_INCH);
+
+            NewLeftTarget = robot.lm1.getCurrentPosition() + moveCounts;
+            NewLeftTarget1 = robot.lm1.getCurrentPosition() + moveCounts;
+            NewRightTarget1 = robot.lm1.getCurrentPosition() + moveCounts1;
+            NewRightTarget = robot.lm1.getCurrentPosition() + moveCounts1;
+
+            robot.lm1.setPower(speed);
+            robot.lm2.setPower(speed);
+            robot.rm1.setPower(speed);
+            robot.rm2.setPower(speed);
+
+
+            robot.lm1.setTargetPosition(NewLeftTarget);
+            robot.lm2.setTargetPosition(NewLeftTarget1);
+            robot.rm1.setTargetPosition(NewRightTarget);
+            robot.rm2.setTargetPosition(NewRightTarget1);
+
+            sleep(3000);
+        }
+
+    }
+    public void driveTurn (int degree,int speed){
+        int NewLeftTarget;
+        int NewLeftTarget1;
+        int NewRightTarget1;
+        int NewRightTarget;
+        int moveCounts1;
+        int moveCounts;
+        int leftSpeed;
+        int rightSpeed;
+
+    }
+/*
     public void Drive ( double speed,
                             double distance) {
 
@@ -244,5 +290,7 @@ public class auto_1 extends LinearOpMode {
             robot.rm1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.rm2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
+
     }
+    */
 }
