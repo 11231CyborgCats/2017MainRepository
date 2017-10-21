@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -23,6 +24,8 @@ public class hardware {
     public static final double ARM_UP_POWER    =  0.45 ;
     public static final double ARM_DOWN_POWER  = -0.45 ;
 
+
+
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
     private ElapsedTime period  = new ElapsedTime();
@@ -37,15 +40,18 @@ public class hardware {
         // Save reference to Hardware map
         hwMap = ahwMap;
 
+
+
         // Define and Initialize Motors
         lm1  = hwMap.get(DcMotor.class, "lm1");
         lm2 = hwMap.get(DcMotor.class, "lm2");
         rm1 = hwMap.get(DcMotor.class, "rm1");
         rm2 = hwMap.get(DcMotor.class, "rm2");
+
         lm1.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         lm2.setDirection(DcMotor.Direction.FORWARD);
-        rm1.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
-        rm2.setDirection(DcMotor.Direction.REVERSE);
+        rm1.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+        rm2.setDirection(DcMotor.Direction.FORWARD);
 
         // Set all motors to zero power
         lm1.setPower(0);
